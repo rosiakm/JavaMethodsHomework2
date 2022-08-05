@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -11,26 +12,33 @@ public class GuessingNumber {
 
         //The for loop for 5 chances
         for(int i = 5; i > 0; i--){
-            int number = scanner.nextInt();
+                try {
+                    int number = scanner.nextInt();
 
-            if (number > numberToGuess){
-                System.out.println("Your number is GREATER than the one you are trying to guess");
-            } else if (number < numberToGuess) {
-                System.out.println("Your number is LOWER than the one you are trying to guess");
-            } else if (number == numberToGuess) {
-                System.out.println("You guessed it!");
-                break;
-            }
-            System.out.println("Number of remaining guesses: " + (i-1));
-            //If this is not your last chance then write out the text
-            while (i > 1){
-                System.out.println("Please try again");
-                break;
-            }
-            //If you have failed to guess within five attempts
-            if(i == 1 && number != numberToGuess){
-                System.out.println("Sorry you didn't guess the number, the answer was:" + numberToGuess);
-            }
+                    if (number > numberToGuess) {
+                        System.out.println("Your number is GREATER than the one you are trying to guess");
+                    } else if (number < numberToGuess) {
+                        System.out.println("Your number is LOWER than the one you are trying to guess");
+                    } else if (number == numberToGuess) {
+                        System.out.println("You guessed it!");
+                        break;
+                    }
+                    System.out.println("Number of remaining guesses: " + (i - 1));
+                    //If this is not your last chance then write out the text
+                    while (i > 1) {
+                        System.out.println("Please try again");
+                        break;
+                    }
+                    //If you have failed to guess within five attempts
+                    if (i == 1 && number != numberToGuess) {
+                        System.out.println("Sorry you didn't guess the number, the answer was:" + numberToGuess);
+                    }
+                }
+                catch (InputMismatchException e){
+                    System.out.println("This is not an integer! Please provide a correct number!");
+                    scanner.nextLine();
+                    i++;
+                }
         }
     }
 }
